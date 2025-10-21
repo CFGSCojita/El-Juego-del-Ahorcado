@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Juego del Ahorcado</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/ahorcado_favicon.webp" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Título del juego -->
+    <h1>El Juego del Ahorcado</h1>
+    <br/>
+
+    <!-- Mensaje de instrucción -->
+    <p>Selecciona una letra, le quedan <span id="contador"> 0 </span> intentos.</p>
+
+    <!-- Palabra oculta. La hacemos tanto ID como clase porque el ID lo manipularemos con JS y la clase con CSS. De esa manera podremos organizar mejor el estilo. -->
+    <div id="palabra-oculta" class="palabra-oculta"></div>
+
+    <!-- Contenedor del abecedario -->
+    <div id="abecedario-contenedor" class="abecedario-contenedor"></div>
+
+    <!-- Contador de errores -->
+    <p>Has cometido <span id="contador-errores"> 0 </span> errores.</p>
+
+    <!-- Cronómetro -->
+    <div id="cronometro" class="cronometro"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
