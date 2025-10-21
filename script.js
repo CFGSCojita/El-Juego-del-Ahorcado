@@ -116,7 +116,7 @@ function manejarAdivinanza(letra, elementoBoton) {
         // Estructura de control 'if'.
         // Si no quedan guiones bajos en la palabra oculta, indicamos que el jugador ha ganado.
         if (!palabraOcultaEl.textContent.includes('_')) {
-            alert(`¡Felicidades! Ganaste la palabra: ${palabraOculta}.`); // Mostramos una alerta de victoria.
+            alert(`¡Felicidades! Ganaste, la palabra era: ${palabraOculta}.`); // Mostramos una alerta de victoria.
             terminarJuego(true); // Terminamos el juego con victoria.
         }
 
