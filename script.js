@@ -1,6 +1,7 @@
 
 // Declaración de variables.
 const MAX_INTENTOS = 7;
+const TIEMPO_LIMITE = 10;
 let intentosDisponibles = MAX_INTENTOS;
 let errores = 0;
 let palabraOculta = "";
@@ -25,6 +26,46 @@ const listaPalabras = [
     "DOM",
     "CLASES"
 ];
+
+// Creamos una función para guardar las estadísticas en el almacenamiento local.
+function guardarEstadisticas(palabra, erroresPartida, tiempoPartida) {
+    const claveRecord = `record_${palabra}`; // Creamos una clave única para cada palabra.
+    const recordGuardadoJSON = localStorage.getItem(claveRecord); // Obtenemos las estadísticas existentes para la palabra.
+
+    // Declaramos una variable para indicar si se debe actualizar el récord.
+    let actualizarRecord = false;
+
+    // Estructura de control 'if'.
+    // Comprobamos si hay un récord guardado y si se debe actualizar.
+    if (!recordGuardadoJSON) {
+        actualizarRecord = true; // No hay récord guardado, por lo que se debe actualizar.
+    } else {
+        const recordGuardado = JSON.parse(recordGuardadoJSON); // Parseamos el JSON para obtener el objeto de estadísticas.
+
+        // Estructura de control 'if'.
+        // Si el número de errores es menor a la cantidad de errores guardada, actualizamos el récord.
+        // Pero si la cantidad de errores es la misma, comparamos si el tiempo es menor a la cantidad de tiempo guardada y de esa manera actualizamos el récord en este caso.
+        if (erroresPartida < recordGuardado.errores) {
+            actualizarRecord = true; // Actualizamos el récord.
+        } else if (erroresPartida === recordGuardado.errores && tiempoPartida < recordGuardado.tiempo) {
+            actualizarRecord = true; // Actualizamos el récord.
+        }
+    }
+
+    // Estructura de control 'if'.
+    // Si se debe actualizar el récord, guardamos las nuevas estadísticas en el almacenamiento local.
+    if (actualizarRecord) {
+        // Creamos un objeto con las nuevas estadísticas.
+        const nuevoRecord = {
+            errores: erroresPartida,
+            tiempo: tiempoPartida
+        };
+        localStorage.setItem(claveRecord, JSON.stringify(nuevoRecord)); // Guardamos el objeto como un string JSON en el almacenamiento local. Usamos stringify() para convertir el objeto a JSON.
+        console.log(`¡Nuevo récord para la palabra "${palabra}" guardado!`);
+    } else {
+        console.log(`No se ha superado el récord para la palabra "${palabra}".`);
+    }
+}
 
 // Creamos una función para iniciar el juego.
 function iniciarJuego() {
@@ -162,6 +203,10 @@ function terminarJuego(victoria) {
     clearInterval(intervaloCronometro); // Detenemos el cronómetro.
     juegoIniciado = false; // Reiniciamos la variable de estado del juego.
     
+    if (victoria) {
+        guardarEstadisticas(palabraOculta, errores, tiempoTranscurrido); // Guardamos las estadísticas si el jugador ha ganado.
+    }
+
     const botones = abecedarioContenedor.querySelectorAll('.letra-boton'); // Seleccionamos todos los botones de letras.
 
     // Por cada uno de los botones, deshabilitamos la interacción.
