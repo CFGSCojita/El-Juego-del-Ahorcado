@@ -16,6 +16,7 @@ const intentosEl = document.getElementById("contador");
 const erroresEl = document.getElementById("contador-errores");
 const abecedarioContenedor = document.getElementById("abecedario-contenedor");
 const cronometroEl = document.getElementById("cronometro");
+const mensajeResultadoEl = document.getElementById("mensaje-resultado");
 
 // Declaramos una lista de palabras a adivinar para el juego.
 const listaPalabras = [
@@ -117,8 +118,8 @@ function manejarAdivinanza(letra, elementoBoton) {
         // Estructura de control 'if'.
         // Si no quedan guiones bajos en la palabra oculta, indicamos que el jugador ha ganado.
         if (!palabraOcultaEl.textContent.includes('_')) {
-            alert(`¡Felicidades! Ganaste, la palabra era: ${palabraOculta}.`); // Mostramos una alerta de victoria.
-            terminarJuego(true); // Terminamos el juego con victoria.
+            const mensaje = `¡Felicidades! Ganaste, la palabra era: ${palabraOculta}.`; // Mostramos un mensaje de victoria.
+            terminarJuego(true, mensaje); // Terminamos el juego con victoria.
         }
 
     } else {
@@ -130,8 +131,8 @@ function manejarAdivinanza(letra, elementoBoton) {
         // Estructura de control 'if'.
         // Si no quedan intentos disponibles, indicamos que el jugador ha perdido.
         if (intentosDisponibles <= 0) {
-            alert(`¡Perdiste! La palabra era: ${palabraOculta}.`);
-            terminarJuego(false);
+            const mensaje = `¡Perdiste! La palabra era: ${palabraOculta}.`; // Mostramos un mensaje de derrota.
+            terminarJuego(false, mensaje); // Terminamos el juego con derrota.
         }
     }
 }
@@ -199,16 +200,25 @@ function guardarEstadisticas(palabra, erroresPartida, tiempoPartida) {
 }
 
 // Creamos una función para terminar el juego.
-function terminarJuego(victoria) {
+function terminarJuego(victoria, mensajeResultado) {
     clearInterval(intervaloCronometro); // Detenemos el cronómetro.
     juegoIniciado = false; // Reiniciamos la variable de estado del juego.
     
+    // Estructura de control 'if'.
+    // Si el jugador ha ganado, guardamos las estadísticas y se lo indicamos con un mensaje.
+    // En caso contrario, solo mostramos el mensaje de derrota.
     if (victoria) {
-        guardarEstadisticas(palabraOculta, errores, tiempoTranscurrido); // Guardamos las estadísticas si el jugador ha ganado.
+        guardarEstadisticas(palabraOculta, errores, tiempoTranscurrido); // Guardamos las estadísticas.
+        mensajeResultadoEl.classList.add('mensaje-victoria');
+    } else {
+        mensajeResultadoEl.classList.add('mensaje-derrota');
     }
+
+    mensajeResultadoEl.textContent = mensajeResultado; // Mostramos el mensaje de resultado en la interfaz.
 
     const botones = abecedarioContenedor.querySelectorAll('.letra-boton'); // Seleccionamos todos los botones de letras.
 
+    // Bucle 'for-each'.
     // Por cada uno de los botones, deshabilitamos la interacción.
     botones.forEach(boton => {
         boton.style.pointerEvents = 'none';

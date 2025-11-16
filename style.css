@@ -13,7 +13,7 @@ body {
     text-align: center;
 }
 
-/* Estilos para el título principal */
+/* Estilos para el título principal. */
 h1 {
     color: #e74c3c;
     margin-bottom: 10px;
@@ -40,18 +40,16 @@ h1 {
 
 /* Estilos para las letras acertadas. */
 .letra-acertada {
-    background-color: #2ecc71;
+    background-color: #2ecc71 !important; /* Forzamos a añadir el background-color. */
     color: white;
     cursor: default;
-    border-color: #2ecc71;
 }
 
 /* Estilos para las letras falladas. */
 .letra-fallada {
-    background-color: #e74c3c;
+    background-color: #e74c3c !important; /* Forzamos a añadir el background-color. */
     color: white;
     cursor: default;
-    border-color: #e74c3c;
 }
 
 /* Estilos para las letras del abecedario (Clase base que JS añade a cada letra). */
@@ -80,4 +78,25 @@ h1 {
 /* Efecto al hacer clic en las letras del abecedario. */
 .letra-boton:active {
     transform: scale(0.95);
+}
+
+/* Estilos para el contenedor del mensaje de resultado */
+#mensaje-resultado {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Color para el mensaje de victoria. */
+.mensaje-victoria {
+    color: #2ecc71;
+    border: 2px solid #2ecc71;
+}
+
+/* Color para el mensaje de derrota. */
+.mensaje-derrota {
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
 }
