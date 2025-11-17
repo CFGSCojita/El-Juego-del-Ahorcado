@@ -9,6 +9,8 @@ let letrasAdivinadas = [];
 let juegoIniciado = false;
 let intervaloCronometro; 
 let tiempoTranscurrido = 0;
+let intervaloCuentaAtras;
+let tiempoRestante = TIEMPO_LIMITE;
 
 // Declaración de variables para la manipulación con DOM. Ponemos "El" como nombre al final de cada variable para indicar que es un elemento manipulable.
 const palabraOcultaEl = document.getElementById("palabra-oculta");
@@ -17,6 +19,7 @@ const erroresEl = document.getElementById("contador-errores");
 const abecedarioContenedor = document.getElementById("abecedario-contenedor");
 const cronometroEl = document.getElementById("cronometro");
 const mensajeResultadoEl = document.getElementById("mensaje-resultado");
+const cuentaAtrasEl = document.getElementById("cuenta-atras-el");
 
 // Declaramos una lista de palabras a adivinar para el juego.
 const listaPalabras = [
@@ -27,6 +30,44 @@ const listaPalabras = [
     "DOM",
     "CLASES"
 ];
+
+// Creamos una función para reiniciar la cuenta atrás.
+function reiniciarCuentaAtras() {
+
+    // Estructura de control 'if'.
+    // Si ya hay un intervalo de cuenta atrás en ejecución, lo limpiamos.
+    if (intervaloCuentaAtras) {
+        clearInterval(intervaloCuentaAtras); // Limpiamos cualquier intervalo previo.
+    }
+
+    tiempoRestante = TIEMPO_LIMITE; // Reiniciamos el tiempo restante.
+    cuentaAtrasEl.textContent = tiempoRestante; // Actualizamos el contenido del elemento en la interfaz.
+
+    // Iniciamos un nuevo intervalo para la cuenta atrás.
+    intervaloCuentaAtras = setInterval(() => {
+        tiempoRestante--; // Decrementamos el tiempo restante.
+        cuentaAtrasEl.textContent = tiempoRestante; // Actualizamos el contenido del elemento en la interfaz.
+
+        // Estructura de control 'if'.
+        // Si el tiempo restante llega a cero, manejamos la situación de tiempo agotado.
+        if (tiempoRestante <= 0) {
+            clearInterval(intervaloCuentaAtras); // Limpiamos el intervalo de la cuenta atrás.
+
+            errores++; // Incrementamos el contador de errores.
+            intentosDisponibles--; // Decrementamos el contador de intentos disponibles.
+            actualizarInterfazContadores(); // Actualizamos los contadores en la interfaz a través de la función.
+
+            // Estructura de control 'if'.
+            // Si no quedan intentos disponibles, indicamos que el jugador ha perdido.
+            if (intentosDisponibles <= 0) {
+                const mensaje = `¡Perdiste! Se acabó el tiempo. La palabra era ${palabraOculta}.`;
+                terminarJuego(false, mensaje);
+            } else {
+                reiniciarCuentaAtras(); // Reiniciamos la cuenta atrás para el siguiente intento.
+            }
+        }
+    }, 1000);
+}
 
 // Creamos una función para iniciar el juego.
 function iniciarJuego() {
@@ -44,6 +85,14 @@ function iniciarJuego() {
     mostrarPalabraOculta(); // Llamamos a la función para mostrar la palabra oculta en la interfaz.
 
     cronometroEl.textContent = "00:00:00"; // Reiniciamos el cronómetro en la interfaz.
+    mensajeResultadoEl.textContent = ""; // Limpiamos el mensaje de resultado en la interfaz.
+    mensajeResultadoEl.classList.remove('mensaje-victoria', 'mensaje-derrota'); // Eliminamos las clases de mensaje de victoria o derrota.
+
+    tiempoRestante = TIEMPO_LIMITE; // Reiniciamos el tiempo restante.
+    cuentaAtrasEl.textContent = TIEMPO_LIMITE; // Actualizamos el contenido del elemento de cuenta atrás en la interfaz.
+    if (intervaloCuentaAtras) {
+        clearInterval(intervaloCuentaAtras); // Limpiamos cualquier intervalo previo.
+    }
 }
 
 // Creamos una función para actualizar los contadores en la interfaz.
@@ -103,6 +152,8 @@ function manejarAdivinanza(letra, elementoBoton) {
         juegoIniciado = true;
         iniciarCronometro();
     }
+
+    reiniciarCuentaAtras();
 
     elementoBoton.style.pointerEvents = 'none'; // Deshabilitamos el botón para que no se pueda volver a hacer clic en él.
 
@@ -202,6 +253,7 @@ function guardarEstadisticas(palabra, erroresPartida, tiempoPartida) {
 // Creamos una función para terminar el juego.
 function terminarJuego(victoria, mensajeResultado) {
     clearInterval(intervaloCronometro); // Detenemos el cronómetro.
+    clearInterval(intervaloCuentaAtras); // Detenemos la cuenta atrás.
     juegoIniciado = false; // Reiniciamos la variable de estado del juego.
     
     // Estructura de control 'if'.
