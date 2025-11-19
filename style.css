@@ -100,3 +100,29 @@ h1 {
     color: #e74c3c;
     border: 2px solid #e74c3c;
 }
+
+/* Estilo para el contenedor del selector de tema */
+#selector-tema-contenedor {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estilo para el selector de tema */
+#selector-tema {
+    padding: 5px;
+    font-size: 0.9em;
+    border: 2px solid #2c3e50;
+    border-radius: 5px;
+    background-color: white;
+    font-family: 'Roboto Mono', monospace;
+    cursor: pointer;
+}
+
+/* Estilo para la etiqueta del selector de tema */
+label[for="selector-tema"] {
+    font-weight: bold;
+}

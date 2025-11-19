@@ -1,0 +1,16 @@
+{
+  "temas": [
+    {
+      "nombre": "TECNOLOGIA",
+      "palabras": ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "ALGORITMO", "SERVIDOR", "DATABASE"]
+    },
+    {
+      "nombre": "ANIMALES",
+      "palabras": ["ELEFANTE", "TIGRE", "AGUILA", "DELFIN", "BALLENA", "CANGURO", "PINGUINO"]
+    },
+    {
+      "nombre": "PAISES",
+      "palabras": ["ESPAÑA", "FRANCIA", "ITALIA", "ALEMANIA", "JAPON", "BRASIL", "CANADA"]
+    }
+  ]
+}
