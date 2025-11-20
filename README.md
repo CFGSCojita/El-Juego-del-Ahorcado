@@ -57,4 +57,6 @@ Como sugerencias para futuras mejoras:
 * **Gestión de Usuarios:** Añadir un inicio de sesión simple para guardar récords nominalmente.
 
 ### 8. Referencias
+* [Ejercicio Servidor clase](https://github.com/CFGSCojita/Servidor-JSON).
 * [Documentación oficial de JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+* [Documentación oficial de Node](https://nodejs.org/docs/latest/api).
