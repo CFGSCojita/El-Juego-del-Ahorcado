@@ -1,20 +1,28 @@
 {
   "temas": [
     {
-      "nombre": "PROGRAMACION",
+      "nombre": "TECNOLOGIA",
       "palabras": ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "ALGORITMO", "SERVIDOR", "DATABASE"]
     },
     {
-      "nombre": "ANIMALES",
-      "palabras": ["ELEFANTE", "TIGRE", "AGUILA", "DELFIN", "BALLENA", "CANGURO", "PINGUINO"]
+      "nombre": "COLORES",
+      "palabras": ["AZUL", "ROJO", "VERDE", "AMARILLO", "MORADO", "NARANJA", "BLANCO"]
     },
     {
-      "nombre": "PAISES",
-      "palabras": ["ESPAÑA", "FRANCIA", "ITALIA", "ALEMANIA", "JAPON", "BRASIL", "CANADA"]
+      "nombre": "VIDEOJUEGOS",
+      "palabras": ["ZELDA", "MARIO", "FORTNITE", "MINECRAFT", "POKEMON", "SKYRIM", "HALO"]
     },
     {
       "nombre": "COMIDA",
       "palabras": ["HAMBURGUESA", "PIZZA", "ESPAGUETIS", "ENSALADA", "POLLO", "VERDURAS", "FRUTA"]
+    },
+    {
+      "nombre": "OFICIOS",
+      "palabras": ["ARQUITECTO", "BOMBERO", "PLOMERO", "PANADERO", "CAMARERO", "ABOGADO", "MEDICO"]
+    },
+    {
+      "nombre": "FAMOSOS",
+      "palabras": ["AURONPLAY", "SHAKIRA", "MESSI", "FALETE", "GAGA", "AITANA", "LEONARDO"]
     }
   ]
 }
