@@ -1,7 +1,7 @@
 {
   "temas": [
     {
-      "nombre": "TECNOLOGIA",
+      "nombre": "PROGRAMACION",
       "palabras": ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "ALGORITMO", "SERVIDOR", "DATABASE"]
     },
     {
@@ -11,6 +11,10 @@
     {
       "nombre": "PAISES",
       "palabras": ["ESPAÑA", "FRANCIA", "ITALIA", "ALEMANIA", "JAPON", "BRASIL", "CANADA"]
+    },
+    {
+      "nombre": "COMIDA",
+      "palabras": ["HAMBURGUESA", "PIZZA", "ESPAGUETIS", "ENSALADA", "POLLO", "VERDURAS", "FRUTA"]
     }
   ]
 }

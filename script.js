@@ -11,6 +11,7 @@ let intervaloCronometro;
 let tiempoTranscurrido = 0;
 let intervaloCuentaAtras;
 let tiempoRestante = TIEMPO_LIMITE;
+let datosJuego = null;
 
 // Declaración de variables para la manipulación con DOM. Ponemos "El" como nombre al final de cada variable para indicar que es un elemento manipulable.
 const palabraOcultaEl = document.getElementById("palabra-oculta");
@@ -20,16 +21,45 @@ const abecedarioContenedor = document.getElementById("abecedario-contenedor");
 const cronometroEl = document.getElementById("cronometro");
 const mensajeResultadoEl = document.getElementById("mensaje-resultado");
 const cuentaAtrasEl = document.getElementById("cuenta-atras-el");
+const selectorTemaEl = document.getElementById("selector-tema");
 
 // Declaramos una lista de palabras a adivinar para el juego.
-const listaPalabras = [
-    "JAVASCRIPT",
-    "PROGRAMACION",
-    "DESARROLLO",
-    "HTML",
-    "DOM",
-    "CLASES"
-];
+let listaPalabras = [];
+
+// Declaramos una función asíncrona para cargar los datos del JSON y comenzar el juego.
+async function cargarDatosYJuego() {
+    // Estructura 'try-catch'.
+    // Intentará cargar el archivo JSON y manejar cualquier error que pueda ocurrir.
+    try {
+        const respuesta = await fetch('palabras.json'); // Hacemos una solicitud para obtener el archivo JSON y la guardamos en una variable.
+        const datos = await respuesta.json(); // Convertimos la respuesta en un objeto JSON.
+
+        datosJuego = datos; // Guardamos los datos del juego en la variable global.
+
+        selectorTemaEl.innerHTML = ""; // Limpiamos el selector de temas antes de llenarlo.
+
+        // Bucle 'for-each'.
+        // Recorrerá cada tema en los datos y crea una opción en el selector para cada uno.
+        datos.temas.forEach((tema, index) => {
+            const opcion = document.createElement('option'); // Creamos un elemento 'option' para el selector.
+            opcion.value = index; // Establecemos el valor de la opción como el índice del tema.
+            opcion.textContent = tema.nombre; // Establecemos el texto de la opción como el nombre del tema.
+            selectorTemaEl.appendChild(opcion); // Añadimos la opción al selector de temas.
+        });
+
+        // Añadimos un evento 'change' al selector de temas para cambiar la lista de palabras cuando se seleccione un tema diferente.
+        selectorTemaEl.addEventListener('change', (evento) => {
+            const indiceTema = evento.target.value; // Obtenemos el índice del tema seleccionado.
+            listaPalabras = datosJuego.temas[indiceTema].palabras; // Actualizamos la lista de palabras según el tema seleccionado.
+            iniciarJuego(); // Iniciamos el juego con la nueva lista de palabras.
+        });
+
+        listaPalabras = datosJuego.temas[0].palabras; // Inicializamos la lista de palabras con el primer tema por defecto.
+        iniciarJuego(); // Iniciamos el juego.
+    } catch (e) {
+        console.error("Error al cargar el archivo JSON", e);
+    }
+}
 
 // Creamos una función para reiniciar la cuenta atrás.
 function reiniciarCuentaAtras() {
@@ -278,4 +308,4 @@ function terminarJuego(victoria, mensajeResultado) {
     
 }
 
-document.addEventListener("DOMContentLoaded", iniciarJuego); // Iniciamos el juego cuando el contenido del DOM esté completamente cargado.
+document.addEventListener("DOMContentLoaded", cargarDatosYJuego); // Iniciamos el juego cuando el contenido del DOM esté completamente cargado.
